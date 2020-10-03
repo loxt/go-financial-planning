@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Init listen the server
 func Init() {
 	http.HandleFunc("/transactions", transaction.GetTransactions)
 	http.HandleFunc("/transaction/create", transaction.CreateTransaction)
