@@ -9,14 +9,14 @@ import (
 func main() {
 	http.HandleFunc("/", getTransactions)
 
-	http.ListenAndServe(":8080", nil)
+	_ = http.ListenAndServe(":8080", nil)
 }
 
 type Transaction struct {
-	Title     string
-	Amount    float32
-	Type      int
-	CreatedAt time.Time
+	Title     string    `json:"title"`
+	Amount    float32   `json:"amount"`
+	Type      int       `json:"type"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type Transactions []Transaction
@@ -26,6 +26,8 @@ func getTransactions(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
 
 	var layout = "2006-01-02T15:04:05"
 	salaryReceived, _ := time.Parse(layout, "2020-10-03T00:18:00")
